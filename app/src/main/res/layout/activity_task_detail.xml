@@ -26,13 +26,52 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+"
+            android:text="Add"
             android:textColor="@color/cardview_dark_background"
             android:textSize="30sp"
+            android:textStyle="bold"
             android:backgroundTint="@color/material_dynamic_tertiary80"
             android:layout_gravity="end"
-            android:onClick="newTask" />
+            android:onClick="addTask"/>
 
     </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Task:"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_gravity="left"/>
+
+        <EditText
+            android:id="@+id/taskName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp"
+            android:maxLines="1"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Additional Notes:"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_gravity="left"/>
+
+        <EditText
+            android:id="@+id/additionalNotes"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="25sp"
+            android:minLines="3"
+            android:layout_gravity="center"/>
+
+
 
 </LinearLayout>
