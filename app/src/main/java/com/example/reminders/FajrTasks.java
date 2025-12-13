@@ -26,14 +26,12 @@ public class FajrTasks extends AppCompatActivity {
         setContentView(R.layout.activity_fajr_tasks);
         initWidgets();
 
-        /*
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-         */
     }
     public void goBack(View v){
         //go back to main
@@ -42,7 +40,7 @@ public class FajrTasks extends AppCompatActivity {
     }
 
     private void initWidgets() {
-        taskListView = findViewById(R.id.taskListView);
+        taskListView = findViewById(R.id.fajr_tasks_listview);
     }
 
 
@@ -52,5 +50,7 @@ public class FajrTasks extends AppCompatActivity {
     }
 
     public void newTask(View view) {
+        Intent newTaskIntent = new Intent(this, TaskDetailActivity.class);
+        startActivity(newTaskIntent);
     }
 }
