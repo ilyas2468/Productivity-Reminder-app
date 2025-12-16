@@ -20,12 +20,16 @@ public class TaskDetailActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_task_detail);
         initWidgets();
-        
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+
+
+        /*
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.activity_fajr_tasks), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+         */
     }
 
     private void initWidgets() {
@@ -34,12 +38,14 @@ public class TaskDetailActivity extends AppCompatActivity {
     }
 
     public void addTask(View view) {
+        SQLiteManager sqLiteManager = SQLiteManager.instanceOfDatabase(this);
         String taskName = String.valueOf(taskEditName.getText());
         String additionalNotes = String.valueOf(additionalNotesEditText.getText());
 
         int id = Task.taskArrayList.size();
         Task newTask = new Task(id,taskName,additionalNotes);
         Task.taskArrayList.add(newTask);
+        sqLiteManager.addTaskToDatabase(newTask);
         finish();
     }
 }

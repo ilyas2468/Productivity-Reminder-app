@@ -6,6 +6,8 @@ import java.util.Date;
 public class Task {
 
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
+
+    public static String TASK_EDIT_EXTRA = "taskEdit";
     private int id;
     private String taskName;
     private String description;

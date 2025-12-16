@@ -16,8 +16,7 @@
         <activity
             android:name=".FajrTasks"
             android:exported="false"
-            android:label="Fajr Tasks"
-            android:parentActivityName=".MainActivity" />
+            android:label="Fajr Tasks"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
