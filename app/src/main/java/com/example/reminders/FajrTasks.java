@@ -50,7 +50,7 @@ public class FajrTasks extends AppCompatActivity {
     }
 
     private void setTaskAdapter(){
-        TaskAdapter taskAdapter = new TaskAdapter(getApplicationContext(), Task.taskArrayList);
+        TaskAdapter taskAdapter = new TaskAdapter(getApplicationContext(), Task.nonDeletedTasks());
         taskListView.setAdapter(taskAdapter);
     }
 
@@ -70,6 +70,13 @@ public class FajrTasks extends AppCompatActivity {
         Intent newTaskIntent = new Intent(this, TaskDetailActivity.class);
         startActivity(newTaskIntent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setTaskAdapter();
+    }
+
     public void goBack(View v){
         //go back to main
         Intent f = new Intent(this, MainActivity.class);

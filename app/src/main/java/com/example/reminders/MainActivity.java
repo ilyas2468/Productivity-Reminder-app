@@ -31,4 +31,5 @@ public class MainActivity extends AppCompatActivity {
         Intent f = new Intent(this, FajrTasks.class);
         startActivity(f);
     }
+    
 }

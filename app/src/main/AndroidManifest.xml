@@ -11,12 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reminders">
         <activity
+            android:name=".activity_dhur_activity"
+            android:exported="false" />
+        <activity
             android:name=".TaskDetailActivity"
             android:exported="false" />
         <activity
             android:name=".FajrTasks"
             android:exported="false"
-            android:label="Fajr Tasks"/>
+            android:label="Fajr Tasks" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

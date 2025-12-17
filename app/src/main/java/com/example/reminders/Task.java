@@ -27,6 +27,24 @@ public class Task {
         deleted = null;
     }
 
+    public static Task getTaskForID(int passedTaskID) {
+        for(Task task : taskArrayList){
+            if(task.getId() == passedTaskID)
+                return task;
+        }
+
+        return null;
+    }
+
+    public static ArrayList<Task> nonDeletedTasks(){
+        ArrayList<Task> nonDeleted = new ArrayList<>();
+        for (Task task: taskArrayList){
+            if (task.getDeleted() == null)
+                nonDeleted.add(task);
+        }
+        return nonDeleted;
+    }
+
     public int getId() {
         return id;
     }
