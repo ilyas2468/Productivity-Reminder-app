@@ -8,30 +8,31 @@ import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.Date;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
     private EditText taskEditName, additionalNotesEditText;
-
     private Button deleteTask;
-
     private Task selectedTask;
+    private String prayerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_task_detail);
+
+        // Get prayer name from intent
+        prayerName = getIntent().getStringExtra(MainActivity.PRAYER_EXTRA);
+        if (prayerName == null) {
+            prayerName = "Fajr"; // Default fallback
+        }
+
         initWidgets();
         checkForEditNote();
     }
-
-
 
     private void initWidgets() {
         taskEditName = findViewById(R.id.taskName);
@@ -41,13 +42,12 @@ public class TaskDetailActivity extends AppCompatActivity {
 
     private void checkForEditNote() {
         Intent previousIntent = getIntent();
-
         int passedTaskID = previousIntent.getIntExtra(Task.TASK_EDIT_EXTRA, -1);
         selectedTask = Task.getTaskForID(passedTaskID);
 
         if (selectedTask != null){
             taskEditName.setText(selectedTask.getTaskName());
-            additionalNotesEditText.setText((selectedTask.getDescription()));
+            additionalNotesEditText.setText(selectedTask.getDescription());
         }
         else{
             deleteTask.setVisibility(View.INVISIBLE);
@@ -61,7 +61,7 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         if(selectedTask == null) {
             int id = Task.taskArrayList.size();
-            Task newTask = new Task(id, taskName, additionalNotes);
+            Task newTask = new Task(id, taskName, additionalNotes, prayerName);
             Task.taskArrayList.add(newTask);
             sqLiteManager.addTaskToDatabase(newTask);
         }

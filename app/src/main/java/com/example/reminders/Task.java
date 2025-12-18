@@ -6,25 +6,28 @@ import java.util.Date;
 public class Task {
 
     public static ArrayList<Task> taskArrayList = new ArrayList<>();
-
     public static String TASK_EDIT_EXTRA = "taskEdit";
+
     private int id;
     private String taskName;
     private String description;
     private Date deleted;
+    private String prayer; // NEW: Prayer category
 
-    public Task(int id, String taskName, String description, Date deleted) {
+    public Task(int id, String taskName, String description, Date deleted, String prayer) {
         this.id = id;
         this.taskName = taskName;
         this.description = description;
         this.deleted = deleted;
+        this.prayer = prayer;
     }
 
-    public Task(int id, String taskName, String description) {
+    public Task(int id, String taskName, String description, String prayer) {
         this.id = id;
         this.taskName = taskName;
         this.description = description;
-        deleted = null;
+        this.prayer = prayer;
+        this.deleted = null;
     }
 
     public static Task getTaskForID(int passedTaskID) {
@@ -32,7 +35,6 @@ public class Task {
             if(task.getId() == passedTaskID)
                 return task;
         }
-
         return null;
     }
 
@@ -45,6 +47,17 @@ public class Task {
         return nonDeleted;
     }
 
+    // NEW: Get non-deleted tasks for a specific prayer
+    public static ArrayList<Task> nonDeletedTasksForPrayer(String prayerName){
+        ArrayList<Task> filtered = new ArrayList<>();
+        for (Task task: taskArrayList){
+            if (task.getDeleted() == null && prayerName.equals(task.getPrayer()))
+                filtered.add(task);
+        }
+        return filtered;
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -75,5 +88,13 @@ public class Task {
 
     public void setDeleted(Date deleted) {
         this.deleted = deleted;
+    }
+
+    public String getPrayer() {
+        return prayer;
+    }
+
+    public void setPrayer(String prayer) {
+        this.prayer = prayer;
     }
 }

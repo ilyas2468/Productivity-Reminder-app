@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:id="@+id/activity_fajr_tasks"
+    android:id="@+id/activity_task_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FajrTasks">
+    tools:context=".TaskListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -18,15 +18,13 @@
         android:minHeight="?attr/actionBarSize"
         android:onClick="goBack"
         android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="?attr/homeAsUpIndicator">
 
         <TextView
+            android:id="@+id/toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fajr Tasks"
+            android:text="Tasks"
             android:textSize="35sp"
             android:textStyle="bold"
             android:layout_gravity="center"/>
@@ -44,7 +42,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <ListView
-        android:id="@+id/fajr_tasks_listview"
+        android:id="@+id/tasks_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="3dp"

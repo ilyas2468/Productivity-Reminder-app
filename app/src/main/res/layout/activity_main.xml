@@ -45,11 +45,7 @@
         android:onClick="launchFajrTasks"
         android:text="Fajr"
         android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:cornerRadius="@null"
-        app:layout_constraintBottom_toTopOf="@+id/button9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:cornerRadius="@null" />
 
     <Button
         android:id="@+id/button9"
@@ -57,13 +53,9 @@
         android:layout_height="120dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/holo_red_light"
-        android:onClick="launchDhurTasks"
-        android:text="Dhur"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:layout_constraintBottom_toTopOf="@+id/button12"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:onClick="launchDhuhrTasks"
+        android:text="Dhuhr"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
     <Button
         android:id="@+id/button12"
@@ -71,17 +63,9 @@
         android:layout_height="120dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/holo_red_light"
+        android:onClick="launchAsrTasks"
         android:text="Asr"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:layout_constraintBottom_toTopOf="@+id/button8"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Barrier
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
     <Button
         android:id="@+id/button8"
@@ -89,12 +73,9 @@
         android:layout_height="120dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/holo_red_light"
+        android:onClick="launchMaghribTasks"
         android:text="Maghrib"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:layout_constraintBottom_toTopOf="@+id/button11"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
     <Button
         android:id="@+id/button11"
@@ -102,11 +83,8 @@
         android:layout_height="120dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/holo_red_light"
+        android:onClick="launchIshaTasks"
         android:text="Isha"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
 </LinearLayout>

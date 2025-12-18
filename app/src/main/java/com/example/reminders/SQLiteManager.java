@@ -12,13 +12,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class SQLiteManager extends SQLiteOpenHelper {
 
     private static SQLiteManager sqLiteManager;
 
     private static final String DATABASE_NAME = "TaskDB";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; // Increment version for schema change
     private static final String TABLE_NAME = "Task";
     private static final String COUNTER = "Counter";
 
@@ -26,6 +25,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String TASK_FIELD = "taskName";
     private static final String DESC_FIELD = "desc";
     private static final String DELETED_FIELD = "deleted";
+    private static final String PRAYER_FIELD = "prayer"; // NEW
 
     @SuppressLint("SimpleDateFormat")
     private static final DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -37,15 +37,12 @@ public class SQLiteManager extends SQLiteOpenHelper {
     public static SQLiteManager instanceOfDatabase(Context context){
         if(sqLiteManager == null)
             sqLiteManager = new SQLiteManager(context);
-
         return sqLiteManager;
-
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        StringBuilder sql;
-        sql = new StringBuilder()
+        StringBuilder sql = new StringBuilder()
                 .append("CREATE TABLE ")
                 .append(TABLE_NAME)
                 .append("(")
@@ -58,13 +55,18 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(DESC_FIELD)
                 .append(" TEXT, ")
                 .append(DELETED_FIELD)
+                .append(" TEXT, ")
+                .append(PRAYER_FIELD)
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
-
+        if (oldVersion < 2) {
+            // Add prayer column to existing table
+            sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + PRAYER_FIELD + " TEXT");
+        }
     }
 
     public void addTaskToDatabase(Task task){
@@ -75,12 +77,16 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(TASK_FIELD, task.getTaskName());
         contentValues.put(DESC_FIELD, task.getDescription());
         contentValues.put(DELETED_FIELD, getStringFromDate(task.getDeleted()));
+        contentValues.put(PRAYER_FIELD, task.getPrayer());
 
         sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
     }
 
     public void populateTaskListArray(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+
+        // Clear the existing list before populating to avoid duplicates
+        Task.taskArrayList.clear();
 
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null)){
             if(result.getCount() != 0){
@@ -90,7 +96,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
                     String desc = result.getString(3);
                     String stringDeleted = result.getString(4);
                     Date deleted = getDateFromString(stringDeleted);
-                    Task task = new Task(id,taskName,desc,deleted);
+                    String prayer = result.getString(5);
+
+                    Task task = new Task(id, taskName, desc, deleted, prayer);
                     Task.taskArrayList.add(task);
                 }
             }
@@ -104,8 +112,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
         contentValues.put(TASK_FIELD, task.getTaskName());
         contentValues.put(DESC_FIELD, task.getDescription());
         contentValues.put(DELETED_FIELD, getStringFromDate(task.getDeleted()));
+        contentValues.put(PRAYER_FIELD, task.getPrayer());
 
-        sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ", new String[]{String.valueOf(task.getId())});
+        sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ",
+                new String[]{String.valueOf(task.getId())});
     }
 
     private String getStringFromDate(Date date) {
@@ -116,11 +126,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     private Date getDateFromString(String string){
         try{
-            return  dateFormat.parse(string);
+            return dateFormat.parse(string);
         }
         catch (ParseException | NullPointerException e){
             return null;
         }
     }
-
 }

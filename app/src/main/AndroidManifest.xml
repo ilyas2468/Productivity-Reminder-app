@@ -10,22 +10,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Reminders">
-        <activity
-            android:name=".activity_dhur_activity"
-            android:exported="false" />
+
         <activity
             android:name=".TaskDetailActivity"
             android:exported="false" />
+
+        <!-- Generic task list activity for all prayers -->
         <activity
-            android:name=".FajrTasks"
+            android:name=".TaskListActivity"
             android:exported="false"
-            android:label="Fajr Tasks" />
+            android:label="Tasks" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
