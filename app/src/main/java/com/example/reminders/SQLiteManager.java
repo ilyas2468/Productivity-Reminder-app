@@ -17,15 +17,23 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static SQLiteManager sqLiteManager;
 
     private static final String DATABASE_NAME = "TaskDB";
-    private static final int DATABASE_VERSION = 2; // Increment version for schema change
+    private static final int DATABASE_VERSION = 3; // Increment for reminders table
     private static final String TABLE_NAME = "Task";
+    private static final String REMINDERS_TABLE = "Reminders";
     private static final String COUNTER = "Counter";
 
+    // Task table fields
     private static final String ID_FIELD = "id";
     private static final String TASK_FIELD = "taskName";
     private static final String DESC_FIELD = "desc";
     private static final String DELETED_FIELD = "deleted";
-    private static final String PRAYER_FIELD = "prayer"; // NEW
+    private static final String PRAYER_FIELD = "prayer";
+
+    // Reminders table fields
+    private static final String REMINDER_ID = "id";
+    private static final String REMINDER_TEXT = "text";
+    private static final String REMINDER_SOURCE = "source";
+    private static final String REMINDER_REFERENCE = "reference";
 
     @SuppressLint("SimpleDateFormat")
     private static final DateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
@@ -42,6 +50,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        // Create Task table
         StringBuilder sql = new StringBuilder()
                 .append("CREATE TABLE ")
                 .append(TABLE_NAME)
@@ -59,6 +68,21 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 .append(PRAYER_FIELD)
                 .append(" TEXT)");
         sqLiteDatabase.execSQL(sql.toString());
+
+        // Create Reminders table
+        StringBuilder remindersSql = new StringBuilder()
+                .append("CREATE TABLE ")
+                .append(REMINDERS_TABLE)
+                .append("(")
+                .append(REMINDER_ID)
+                .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                .append(REMINDER_TEXT)
+                .append(" TEXT NOT NULL, ")
+                .append(REMINDER_SOURCE)
+                .append(" TEXT, ")
+                .append(REMINDER_REFERENCE)
+                .append(" TEXT)");
+        sqLiteDatabase.execSQL(remindersSql.toString());
     }
 
     @Override
@@ -67,7 +91,25 @@ public class SQLiteManager extends SQLiteOpenHelper {
             // Add prayer column to existing table
             sqLiteDatabase.execSQL("ALTER TABLE " + TABLE_NAME + " ADD COLUMN " + PRAYER_FIELD + " TEXT");
         }
+        if (oldVersion < 3) {
+            // Create Reminders table
+            StringBuilder remindersSql = new StringBuilder()
+                    .append("CREATE TABLE ")
+                    .append(REMINDERS_TABLE)
+                    .append("(")
+                    .append(REMINDER_ID)
+                    .append(" INTEGER PRIMARY KEY AUTOINCREMENT, ")
+                    .append(REMINDER_TEXT)
+                    .append(" TEXT NOT NULL, ")
+                    .append(REMINDER_SOURCE)
+                    .append(" TEXT, ")
+                    .append(REMINDER_REFERENCE)
+                    .append(" TEXT)");
+            sqLiteDatabase.execSQL(remindersSql.toString());
+        }
     }
+
+    // ==================== TASK METHODS ====================
 
     public void addTaskToDatabase(Task task){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -84,8 +126,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public void populateTaskListArray(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-
-        // Clear the existing list before populating to avoid duplicates
         Task.taskArrayList.clear();
 
         try (Cursor result = sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null)){
@@ -117,6 +157,52 @@ public class SQLiteManager extends SQLiteOpenHelper {
         sqLiteDatabase.update(TABLE_NAME, contentValues, ID_FIELD + " =? ",
                 new String[]{String.valueOf(task.getId())});
     }
+
+    // ==================== REMINDER METHODS ====================
+
+    public void addReminderToDatabase(Reminder reminder){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(REMINDER_TEXT, reminder.getText());
+        contentValues.put(REMINDER_SOURCE, reminder.getSource());
+        contentValues.put(REMINDER_REFERENCE, reminder.getReference());
+
+        sqLiteDatabase.insert(REMINDERS_TABLE, null, contentValues);
+    }
+
+    public int getRemindersCount(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT COUNT(*) FROM " + REMINDERS_TABLE, null);
+        cursor.moveToFirst();
+        int count = cursor.getInt(0);
+        cursor.close();
+        return count;
+    }
+
+    public Reminder getRandomReminder(){
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Reminder reminder = null;
+
+        try (Cursor cursor = sqLiteDatabase.rawQuery(
+                "SELECT * FROM " + REMINDERS_TABLE + " ORDER BY RANDOM() LIMIT 1", null)){
+            if(cursor.moveToFirst()){
+                int id = cursor.getInt(0);
+                String text = cursor.getString(1);
+                String source = cursor.getString(2);
+                String reference = cursor.getString(3);
+                reminder = new Reminder(id, text, source, reference);
+            }
+        }
+        return reminder;
+    }
+
+    public void clearAllReminders(){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.delete(REMINDERS_TABLE, null, null);
+    }
+
+    // ==================== UTILITY METHODS ====================
 
     private String getStringFromDate(Date date) {
         if(date == null)
