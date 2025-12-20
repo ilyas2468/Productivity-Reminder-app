@@ -7,85 +7,204 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@drawable/gradient_background"
     tools:context=".MainActivity">
 
-    <Toolbar
+    <!-- Header with Title and Switch -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
-        android:theme="?actionBarTheme"
-        android:background="@color/black">
+        android:orientation="horizontal"
+        android:padding="24dp"
+        android:gravity="center_vertical">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Reminders"
-            android:textSize="35sp"
-            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:textColor="#2C3E50"
             android:textStyle="bold"
-            android:layout_gravity="start"/>
+            android:fontFamily="sans-serif-medium"/>
 
         <Switch
             android:id="@+id/reminderSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:minHeight="48dp"
-            android:text="on/off"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="normal" />
-    </Toolbar>
+            android:theme="@style/SwitchTheme"/>
 
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="408dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:onClick="launchFajrTasks"
-        android:text="Fajr"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-        app:cornerRadius="@null" />
+    </LinearLayout>
 
-    <Button
-        android:id="@+id/button9"
-        android:layout_width="408dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:onClick="launchDhuhrTasks"
-        android:text="Dhuhr"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+    <!-- Prayer Buttons Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center">
 
-    <Button
-        android:id="@+id/button12"
-        android:layout_width="408dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:onClick="launchAsrTasks"
-        android:text="Asr"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+        <!-- Fajr Button -->
+        <LinearLayout
+            android:id="@+id/fajrButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/prayer_button_background"
+            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:gravity="center_vertical"
+            android:elevation="4dp"
+            android:onClick="launchFajrTasks">
 
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="408dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:onClick="launchMaghribTasks"
-        android:text="Maghrib"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fajr"
+                android:textSize="28sp"
+                android:textColor="#2C3E50"
+                android:fontFamily="sans-serif-light"/>
 
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="408dp"
-        android:layout_height="120dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@android:color/holo_red_light"
-        android:onClick="launchIshaTasks"
-        android:text="Isha"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="☀️"
+                android:textSize="40sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Dhuhr Button -->
+        <LinearLayout
+            android:id="@+id/dhuhrButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/prayer_button_background"
+            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:gravity="center_vertical"
+            android:elevation="4dp"
+            android:onClick="launchDhuhrTasks">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dhuhr"
+                android:textSize="28sp"
+                android:textColor="#2C3E50"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="☀️"
+                android:textSize="40sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Asr Button -->
+        <LinearLayout
+            android:id="@+id/asrButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/prayer_button_background"
+            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:gravity="center_vertical"
+            android:elevation="4dp"
+            android:onClick="launchAsrTasks">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Asr"
+                android:textSize="28sp"
+                android:textColor="#2C3E50"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="🌤️"
+                android:textSize="40sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Maghrib Button -->
+        <LinearLayout
+            android:id="@+id/maghribButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/prayer_button_background"
+            android:layout_marginBottom="16dp"
+            android:padding="20dp"
+            android:gravity="center_vertical"
+            android:elevation="4dp"
+            android:onClick="launchMaghribTasks">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Maghrib"
+                android:textSize="28sp"
+                android:textColor="#2C3E50"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="🌅"
+                android:textSize="40sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+        <!-- Isha Button -->
+        <LinearLayout
+            android:id="@+id/ishaButton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:background="@drawable/prayer_button_background"
+            android:padding="20dp"
+            android:gravity="center_vertical"
+            android:elevation="4dp"
+            android:onClick="launchIshaTasks">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Isha"
+                android:textSize="28sp"
+                android:textColor="#2C3E50"
+                android:fontFamily="sans-serif-light"/>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:text="🌙"
+                android:textSize="40sp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
