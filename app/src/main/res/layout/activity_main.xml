@@ -22,11 +22,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="sans-serif-light"
             android:text="Reminders"
-            android:textSize="32sp"
             android:textColor="#2C3E50"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-medium"/>
+            android:textSize="32sp" />
 
         <Switch
             android:id="@+id/reminderSwitch"
@@ -57,7 +56,7 @@
             android:layout_marginBottom="16dp"
             android:padding="20dp"
             android:gravity="center_vertical"
-            android:elevation="4dp"
+            android:elevation="1dp"
             android:onClick="launchFajrTasks">
 
             <TextView
@@ -89,7 +88,7 @@
             android:layout_marginBottom="16dp"
             android:padding="20dp"
             android:gravity="center_vertical"
-            android:elevation="4dp"
+            android:elevation="1dp"
             android:onClick="launchDhuhrTasks">
 
             <TextView
@@ -121,7 +120,7 @@
             android:layout_marginBottom="16dp"
             android:padding="20dp"
             android:gravity="center_vertical"
-            android:elevation="4dp"
+            android:elevation="1dp"
             android:onClick="launchAsrTasks">
 
             <TextView
@@ -153,7 +152,7 @@
             android:layout_marginBottom="16dp"
             android:padding="20dp"
             android:gravity="center_vertical"
-            android:elevation="4dp"
+            android:elevation="1dp"
             android:onClick="launchMaghribTasks">
 
             <TextView
@@ -180,28 +179,28 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
             android:background="@drawable/prayer_button_background"
-            android:padding="20dp"
+            android:elevation="1dp"
             android:gravity="center_vertical"
-            android:elevation="4dp"
-            android:onClick="launchIshaTasks">
+            android:onClick="launchIshaTasks"
+            android:orientation="horizontal"
+            android:padding="20dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-light"
                 android:text="Isha"
-                android:textSize="28sp"
                 android:textColor="#2C3E50"
-                android:fontFamily="sans-serif-light"/>
+                android:textSize="28sp" />
 
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:gravity="center"
                 android:text="🌙"
-                android:textSize="40sp"
-                android:gravity="center"/>
+                android:textSize="40sp" />
 
         </LinearLayout>
 
